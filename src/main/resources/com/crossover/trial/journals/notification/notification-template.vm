@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <h1>Hi there, new reading is available for you!</h1>
+
+    <ul>
+    #foreach( $journal in $journals )
+      <li>$journal.name (Published by $journal.publisher.name on $date.format($journal.publishDate) in category &quot;$journal.category.name&quot;)</li>
+    #end
+    </ul>
+  </body>
+</html>

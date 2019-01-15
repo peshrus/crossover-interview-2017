@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Welcome to medical journal system</title>
+    <script src="js/angular-min.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body ng-app="JournalApp" ng-controller="CategoryController">
+<h2>Welcome to medical journal system</h2>
+
+
+<div sec:authorize="isAuthenticated()" ng-controller="getSubscriptions">
+    <table>
+        <thead>
+        <td>Journal category</td>
+        <td>Subscribe</td>
+        </thead>
+        <tbody>
+        <tr ng-repeat="subscription in subscriptions">
+            <td>{{subscription.name}}</td>
+            <td>
+                <input type="button" value="subscribe" ng-disabled="subscription.active"  ng-click="subscribe(subscription.id)"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <form action="/journals">
+                    <input type="submit" value="view journals" />
+                </form>
+            </td>
+            <td>
+                <form action="/logout" method="post" ng-if="isAnySubscription">
+                    <input type="submit" value="Logout"/>
+                </form>
+            </td>
+            <td>
+                <form sec:authorize="${hasAnyAuthority('PUBLISHER')}" action="/publisher/browse">
+                    <input type="submit" value="Go to Publisher page"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<div sec:authorize="isAnonymous()" ng-controller="getCategories">
+    <table>
+        <thead>
+        <td>Journal category</td>
+        <td>Subscribe</td>
+        </thead>
+        <tbody>
+
+        <tr ng-repeat="category in categories">
+            <td>{{category.name}}</td>
+            <td>
+                <a href="/login">Login</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+

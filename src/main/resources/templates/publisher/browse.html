@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Publisher page</title>
+    <script src="/js/angular-min.js"></script>
+    <script src="/js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body ng-app="JournalApp" ng-controller="BrowseController">
+<h1>Publisher page</h1>
+<table>
+    <tr>
+        <td>
+            <form action="/publisher/publish">
+                <input type="submit" value="Publish new journal"/>
+            </form>
+        </td>
+        <td>
+            <form action="/journals">
+                <input type="submit" value="Go to journals list"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<div ng-controller="getJournals">
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Publisher</td>
+            <td>Category</td>
+            <td>Publish date</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="journal in journalList">
+            <td>{{journal.name}}</td>
+            <td>{{journal.publisher.name}}</td>
+            <td>{{journal.category.name}}</td>
+            <td>{{journal.publishDate}}</td>
+            <td>
+                <input type="button" value="remove" ng-click="delete(journal.id)"/>
+                <input type="button" value="view" ng-click="view(journal.id)"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

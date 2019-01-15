@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Medical journals</title>
+    <script src="js/angular-min.js"></script>
+    <script src="js/app.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+</head>
+<body ng-app="JournalApp" ng-controller="JournalController">
+
+<p th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</p>
+<table>
+    <tr>
+        <td>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout"/>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/}" method="get">
+                <input type="submit" value="Go to categories"/>
+            </form>
+        </td>
+    </tr>
+</table>
+
+
+<div ng-controller="getJournals" ng-show="journalList.length > 0">
+    <table id="journal-list">
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Publisher</td>
+            <td>Category</td>
+            <td>Publish date</td>
+            <td>Read Link</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="journal in journalList">
+            <td>{{journal.name}}</td>
+            <td>{{journal.publisher.name}}</td>
+            <td>{{journal.category.name}}</td>
+            <td>{{journal.publishDate}}</td>
+            <td><a href="{{journal.readLink}}">Read</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
+
